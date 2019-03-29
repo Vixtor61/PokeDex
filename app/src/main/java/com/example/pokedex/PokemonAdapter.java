@@ -65,7 +65,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
 
         }
         public void  bind(final Pokemon Item){
-            mTextId.setText(Integer.toString(Item.getmId()));
+            mTextId.setText("Id: "+Integer.toString(Item.getmId()));
 
             mTextName.setText(Item.getmName());
             mTextType.setText(Item.getmType());
