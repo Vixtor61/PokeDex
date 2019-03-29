@@ -36,7 +36,7 @@ public class PokemonActivity extends AppCompatActivity {
             mId.setText("Id: " + Integer.toString(pokemon.getmId()));
             AsyncLoadImage imageLoadTask = new AsyncLoadImage();
 
-            imageLoadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, pokemon.getmImage());
+            imageLoadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, pokemon.getSprite().getFront_default());
 
 
         }

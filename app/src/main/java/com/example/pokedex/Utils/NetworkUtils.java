@@ -14,6 +14,7 @@ public class NetworkUtils {
 
     public static final String POKEMON_API_BASE_URL = "https://pokeapi.co/api/v2/";
     public static final String POKEMON_INFO = "pokemon";
+    public static final String POKEMON_SPECIES = "pokemon-species";
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
@@ -22,6 +23,24 @@ public class NetworkUtils {
                 .buildUpon()
                 .appendPath(POKEMON_INFO)
                 .appendPath(pokeID)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "Built URI " + url);
+
+        return url;
+    }
+
+    public static URL buildUrl() {
+        Uri builtUri = Uri.parse(POKEMON_API_BASE_URL)
+                .buildUpon()
+                .appendPath(POKEMON_SPECIES)
                 .build();
 
         URL url = null;
