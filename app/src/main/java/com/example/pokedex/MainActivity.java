@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.example.pokedex.Models.Pokemon;
 import com.example.pokedex.Utils.NetworkUtils;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         initRecycler();
 
         for (int i=1; i <=807;i++){
+
             new FetchPokemonTask().execute(Integer.toString(i).trim());
         }
 
@@ -73,16 +76,27 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String pokemonInfo) {
+
             if (pokemonInfo != null || !pokemonInfo.equals("")) {
                 //mResultText.setText(pokemonInfo);
                 Log.i("DITTO",pokemonInfo);
                 try{
                     String[] PokeTypes = {"",""};
+                    String image = "";
                     JSONObject json = new JSONObject(pokemonInfo);
                     json.get("name");
+                  //  Toast.makeText(MainActivity.this,"HOLA1",Toast.LENGTH_SHORT);
+                    try{
+                        JSONObject sprites = new JSONObject(json.getString("sprites"));
+                         image = sprites.getString("front_default");
+                       // Toast.makeText(MainActivity.this,image,Toast.LENGTH_SHORT).show();
+                    }catch (JSONException e){
+                      //  Toast.makeText(MainActivity.this,"HOLA1",Toast.LENGTH_SHORT).show();
+                    }
 
                     try{
                         JSONArray jsons = new JSONArray(json.getString("types"));
+
                         Log.i("POKETYPE",jsons.getString(0));
 
                         try{
@@ -125,10 +139,11 @@ public class MainActivity extends AppCompatActivity {
                     }catch (JSONException e){
                         Log.d("ERROR1","Error");
                     }
+
                     String PokeTypeString = PokeTypes[0]+ " "+ PokeTypes[1];
 
                     Log.d("POKENAME", json.getString("name"));
-                    pokemons.add(new Pokemon(json.getInt("id"),json.getString("name"),PokeTypeString));
+                    pokemons.add(new Pokemon(json.getInt("id"),json.getString("name"),PokeTypeString,image));
                     Log.d("POKEID", pokemons.get(json.getInt("id")-1).getmName());
                     adapter.notifyDataSetChanged();
                    // initRecycler();

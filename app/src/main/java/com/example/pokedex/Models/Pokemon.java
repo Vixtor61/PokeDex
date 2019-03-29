@@ -4,13 +4,23 @@ import java.io.Serializable;
 
 public class Pokemon implements Serializable {
     private int mId;
+    private String mImage = "";
     private String mName = "";
     private String mType = "";
 
-    public Pokemon(int id,String name,String type) {
+    public Pokemon(int id,String name,String type,String Image) {
               mId = id;
               mName = name;
               mType = type;
+              mImage = Image;
+    }
+
+    public String getmImage() {
+        return mImage;
+    }
+
+    public void setmImage(String mImage) {
+        this.mImage = mImage;
     }
 
     public int getmId() {
